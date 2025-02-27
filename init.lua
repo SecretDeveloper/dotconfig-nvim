@@ -272,7 +272,11 @@ require("lazy").setup(
 					end,
 				},
 				{ "nvim-telescope/telescope-ui-select.nvim" },
-
+				-- file-browser
+				{
+					"nvim-telescope/telescope-file-browser.nvim",
+					dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+				},
 				-- Useful for getting pretty icons, but requires a Nerd Font.
 				{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 			},
@@ -309,6 +313,19 @@ require("lazy").setup(
 					-- },
 					-- pickers = {}
 					extensions = {
+						file_browser = {
+							theme = "ivy",
+							-- disables netrw and use telescope-file-browser in its place
+							hijack_netrw = true,
+							mappings = {
+								["i"] = {
+									-- your custom insert mode mappings
+								},
+								["n"] = {
+									-- your custom normal mode mappings
+								},
+							},
+						},
 						["ui-select"] = {
 							require("telescope.themes").get_dropdown(),
 						},
@@ -318,9 +335,11 @@ require("lazy").setup(
 				-- Enable Telescope extensions if they are installed
 				pcall(require("telescope").load_extension, "fzf")
 				pcall(require("telescope").load_extension, "ui-select")
+				pcall(require("telescope").load_extension("file_browser"))
 
 				-- See `:help telescope.builtin`
 				local builtin = require("telescope.builtin")
+				vim.keymap.set("n", "<leader>fb", ":Telescope file_browser<CR>", { desc = "[F]ile [B]rowser" })
 				vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
 				vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
 				vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
@@ -591,7 +610,7 @@ require("lazy").setup(
 				-- for you, so that they are available from within Neovim.
 				local ensure_installed = vim.tbl_keys(servers or {})
 				vim.list_extend(ensure_installed, {
-					"stylua", -- Used to format Lua code
+					--					"stylua", -- Used to format Lua code
 				})
 				require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
