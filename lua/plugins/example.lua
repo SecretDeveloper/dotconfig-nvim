@@ -33,6 +33,12 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
 
+  { "nvzone/typr",
+    dependencies = "nvzone/volt",
+    opts = {},
+    cmd = {"Typr", "TyprStats"},
+  },
+
   -- change trouble config
   {
     "folke/trouble.nvim",
