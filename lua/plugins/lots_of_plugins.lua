@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-doc-name
 vim.g.lazyvim_check_order = false
 
 -- since this is just an example spec, don't actually load anything here and return an empty spec
@@ -14,6 +15,9 @@ vim.g.lazyvim_check_order = false
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
+  -- add gruvbox
+  { "ellisonleao/gruvbox.nvim" },
+
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
@@ -29,9 +33,6 @@ return {
   --{ import = "lazyvim.plugins.extras.ui.mini-starter" },
 
   { import = "lazyvim.plugins.extras.lang.json" },
-
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
 
   { "nvzone/typr",
     dependencies = "nvzone/volt",
