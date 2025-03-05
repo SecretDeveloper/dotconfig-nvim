@@ -14,6 +14,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Attempting to fix the cursor to be something sane.
+vim.opt.guicursor = "n-v-c-sm:block-nCursor,i-ci-ve:ver25,r-cr-o:hor20"
+vim.opt.virtualedit = "onemore"
+
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
